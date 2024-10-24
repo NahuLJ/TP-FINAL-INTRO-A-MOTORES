@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dvyes26kal3yc"]
+[gd_scene load_steps=29 format=3 uid="uid://dvyes26kal3yc"]
 
 [ext_resource type="Texture2D" uid="uid://nr4exp657n8s" path="res://Assets/Warrior/Individual Sprite/idle/Warrior_Idle_1.png" id="1_5kcli"]
 [ext_resource type="Script" path="res://personaje.gd" id="1_ijgln"]
@@ -21,6 +21,11 @@
 [ext_resource type="Texture2D" uid="uid://ky4abhn63wwj" path="res://Assets/Warrior/Individual Sprite/Run/Warrior_Run_6.png" id="19_nhst1"]
 [ext_resource type="Texture2D" uid="uid://pvquygvoxuv6" path="res://Assets/Warrior/Individual Sprite/Run/Warrior_Run_7.png" id="20_buwnr"]
 [ext_resource type="Texture2D" uid="uid://b3njbxe12wfff" path="res://Assets/Warrior/Individual Sprite/Run/Warrior_Run_8.png" id="21_vo2xt"]
+[ext_resource type="Texture2D" uid="uid://cvnhx5xyd8h2q" path="res://Assets/Warrior/Individual Sprite/Slide/Warrior-Slide_1.png" id="22_nueoq"]
+[ext_resource type="Texture2D" uid="uid://ytn6twhly887" path="res://Assets/Warrior/Individual Sprite/Slide/Warrior-Slide_2.png" id="23_w3kds"]
+[ext_resource type="Texture2D" uid="uid://bux1ffmphuku8" path="res://Assets/Warrior/Individual Sprite/Slide/Warrior-Slide_3.png" id="24_sjbjm"]
+[ext_resource type="Texture2D" uid="uid://wg8ipjfxptle" path="res://Assets/Warrior/Individual Sprite/Slide/Warrior-Slide_4.png" id="25_2plpu"]
+[ext_resource type="Texture2D" uid="uid://botxxfgcf40x1" path="res://Assets/Warrior/Individual Sprite/Slide/Warrior-Slide_5.png" id="26_87blw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2bluc"]
 animations = [{
@@ -103,6 +108,26 @@ animations = [{
 "loop": true,
 "name": &"Run",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_nueoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_w3kds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_sjbjm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_2plpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_87blw")
+}],
+"loop": true,
+"name": &"Slide",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j0ol"]
@@ -116,7 +141,8 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(3, -3)
 sprite_frames = SubResource("SpriteFrames_2bluc")
-animation = &"Idle"
+animation = &"Slide"
+frame_progress = 0.59898
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 1.5)
