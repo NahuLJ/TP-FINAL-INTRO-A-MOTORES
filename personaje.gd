@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const velocidad = 200
+const velocidad = 150
 const velocidad_Salto = 400
-const velocidad_Slide = 300 # velocidad del slide 
+const velocidad_Slide = 200 # velocidad del slide 
 const gravity = 980
 var esta_mirando_derecha = true
 var esta_deslizando = false #Variable para controlar el deslizamiento 
@@ -22,7 +22,7 @@ func animaciones():
 		animated_sprite.play("Slide")
 		return #Salir de la funcion para evitar que se reproduzcan otras animaciones
 	#correr y estar quieto
-	if (velocity.x != 0):
+	if (velocity.x != 0 and not esta_deslizando):
 		animated_sprite.play("Run")
 	else:
 		animated_sprite.play("Idle")
@@ -33,17 +33,18 @@ func animaciones():
 		else:
 			animated_sprite.play("Fall")
 	#Intentado poner la animacion deslizar
-	if Input.is_action_just_pressed("slide") and is_on_floor(): 
+	if Input.is_action_pressed("slide") and is_on_floor(): 
 		animated_sprite.play("Slide")
 		#Ajustar dependiendo de la direccion en la que mire 
 		if esta_mirando_derecha: 
-			velocity.x = velocidad_Slide
+			velocity.x += velocidad_Slide
 		else: 
 			velocity.x = -velocidad_Slide
 		#Duracion del slide 
 		esta_deslizando = true 
 		await get_tree().create_timer(0.3).timeout
 		esta_deslizando = false
+		velocity.x = 0
 
 func saltar(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -61,4 +62,8 @@ func girar():
 func mover_x():
 	var movimiento = Input.get_axis("move_left","move_right")
 	#get axis tiene un valor positivo y uno negativo, en este caso move_left da -1 y move_right da 1
-	velocity.x = movimiento * velocidad
+	#velocity.x = movimiento * velocidad
+	if Input.is_action_pressed("move_left"):
+		velocity.x = -velocidad 
+	elif Input.is_action_pressed("move_right"):
+		velocity.x = velocidad
