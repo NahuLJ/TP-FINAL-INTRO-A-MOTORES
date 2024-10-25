@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://b00otuhogyo1t"]
+[gd_scene load_steps=24 format=3 uid="uid://b00otuhogyo1t"]
 
+[ext_resource type="Script" path="res://enemigo.gd" id="1_lngj0"]
 [ext_resource type="Texture2D" uid="uid://be2aj320tetnb" path="res://Assets/Skeleton_Sword/Skeleton_White/Skeleton_Without_VFX/Skeleton_01_White_Attack1.png" id="1_ss8b3"]
 [ext_resource type="Texture2D" uid="uid://xfrv4w1t778g" path="res://Assets/Skeleton_Sword/Skeleton_White/Skeleton_Without_VFX/Skeleton_01_White_Idle.png" id="2_bug3i"]
 
@@ -142,10 +143,20 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5dkn"]
+size = Vector2(24, 46)
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(0, -5)
+script = ExtResource("1_lngj0")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jxy78")
 animation = &"idle"
+frame = 7
+frame_progress = 0.924995
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 9)
+shape = SubResource("RectangleShape2D_p5dkn")
