@@ -5,9 +5,11 @@ const velocidad_Salto = 400
 const velocidad_Slide = 200 # velocidad del slide 
 const gravity = 980
 
+
 #Variables para controlar
 var esta_mirando_derecha = true
 var esta_deslizando = false #Variable para controlar el deslizamiento 
+var esta_atacando = false 
 
 func _process(delta): 
 	movimiento(delta)
@@ -16,9 +18,15 @@ func _process(delta):
 	animaciones()
 	deslizar()
 	actualizar_giro()
+	atacar()
 
 func animaciones():
 	var animated_sprite = $AnimatedSprite2D
+	
+	if esta_atacando:
+		animated_sprite.play("attack")
+		return 
+		
 	#Deslizarse
 	if esta_deslizando:
 		animated_sprite.play("Slide")
@@ -37,6 +45,17 @@ func animaciones():
 		animated_sprite.play("Run")
 	else:
 		animated_sprite.play("Idle")
+	
+	#Atacar
+	
+	
+func atacar():
+	if Input.is_action_just_pressed("attack") and is_on_floor():
+		esta_atacando = true 
+		velocity.x = 0
+		await get_tree().create_timer(1).timeout
+		esta_atacando = false
+		
 
 
 func deslizar(): 
@@ -64,7 +83,7 @@ func fisicas(delta):
 func movimiento(delta):
 	var movimiento = Input.get_axis("move_left","move_right")
 	#get axis tiene un valor positivo y uno negativo, en este caso move_left da -1 y move_right da 1
-	if not esta_deslizando:
+	if not esta_deslizando and not esta_atacando:
 		velocity.x = movimiento * velocidad_Movimiento  # Multiplica el movimiento por la velocidad
 	
 		# Si no hay movimiento (movimiento == 0), la velocidad en x será 0

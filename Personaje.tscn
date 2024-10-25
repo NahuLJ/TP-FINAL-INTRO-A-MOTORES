@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dvyes26kal3yc"]
+[gd_scene load_steps=37 format=3 uid="uid://dvyes26kal3yc"]
 
 [ext_resource type="Texture2D" uid="uid://nr4exp657n8s" path="res://Assets/Warrior/Individual Sprite/idle/Warrior_Idle_1.png" id="1_5kcli"]
 [ext_resource type="Script" path="res://personaje.gd" id="1_ijgln"]
@@ -26,6 +26,14 @@
 [ext_resource type="Texture2D" uid="uid://bux1ffmphuku8" path="res://Assets/Warrior/Individual Sprite/Slide/Warrior-Slide_3.png" id="24_sjbjm"]
 [ext_resource type="Texture2D" uid="uid://wg8ipjfxptle" path="res://Assets/Warrior/Individual Sprite/Slide/Warrior-Slide_4.png" id="25_2plpu"]
 [ext_resource type="Texture2D" uid="uid://botxxfgcf40x1" path="res://Assets/Warrior/Individual Sprite/Slide/Warrior-Slide_5.png" id="26_87blw"]
+[ext_resource type="Texture2D" uid="uid://bsadjeayyc36x" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_1.png" id="27_mtybf"]
+[ext_resource type="Texture2D" uid="uid://d2itc5s7glkl2" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_2.png" id="28_ots43"]
+[ext_resource type="Texture2D" uid="uid://0md03fyxv237" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_3.png" id="29_jgb4m"]
+[ext_resource type="Texture2D" uid="uid://c8aj07nnftis8" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_4.png" id="30_sewje"]
+[ext_resource type="Texture2D" uid="uid://ca45e7h83ybks" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_5.png" id="31_ou3c7"]
+[ext_resource type="Texture2D" uid="uid://blchltdrrrk6h" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_6.png" id="32_st8q3"]
+[ext_resource type="Texture2D" uid="uid://wclhgehliuw3" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_7.png" id="33_fe6wo"]
+[ext_resource type="Texture2D" uid="uid://d2pkglyiomm1s" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_8.png" id="34_6vbby"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2bluc"]
 animations = [{
@@ -125,9 +133,38 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("26_87blw")
 }],
-"loop": true,
+"loop": false,
 "name": &"Slide",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_mtybf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ots43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_jgb4m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_sewje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_ou3c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_st8q3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_fe6wo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_6vbby")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j0ol"]
@@ -141,8 +178,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(3, -3)
 sprite_frames = SubResource("SpriteFrames_2bluc")
-animation = &"Slide"
-frame_progress = 0.59898
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 1.5)
