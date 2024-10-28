@@ -109,7 +109,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_548q7")
 }],
-"loop": false,
+"loop": true,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -143,8 +143,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l04nk"]
-size = Vector2(20, 33)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5dkn"]
+size = Vector2(24, 32.8571)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_lngj0")
@@ -154,11 +154,13 @@ metadata/_edit_group_ = true
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_jxy78")
 animation = &"attack"
+frame = 6
+frame_progress = 0.702565
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.999999, 6.5)
+position = Vector2(-2, 6.42857)
 scale = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_l04nk")
+shape = SubResource("RectangleShape2D_p5dkn")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(24, 0)

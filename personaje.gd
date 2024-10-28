@@ -1,7 +1,7 @@
 extends CharacterBody2D
 #Constantes de velocidad y gravedad
 const velocidad_Movimiento = 150
-const velocidad_Salto = 400
+const velocidad_Salto = 300
 const velocidad_Slide = 200 # velocidad del slide 
 const gravity = 980
 
@@ -25,37 +25,42 @@ func animaciones():
 	
 	if esta_atacando:
 		animated_sprite.play("attack")
+		print("El personaje esta atacando")
 		return 
 		
 	#Deslizarse
 	if esta_deslizando:
 		animated_sprite.play("Slide")
+		print("El personaje esta deslizandose")
 		return #Salir de la funcion para evitar que se reproduzcan otras animaciones
 	
 	#Saltar y Caer
 	if(not is_on_floor()):
 		if(velocity.y < 0):
 			animated_sprite.play("Jump")
+			print("El personaje esta saltando")
 		else:
 			animated_sprite.play("Fall")
+			print("El personaje esta cayendo")
 		return
 	
 	#Correr y Estar Quieto
 	if (velocity.x != 0):
 		animated_sprite.play("Run")
+		print("El personaje esta corriendo")
 	else:
 		animated_sprite.play("Idle")
+		print("El personaje esta quieto")
 	
 	#Atacar
-	
-	
+
+
 func atacar():
 	if Input.is_action_just_pressed("attack") and is_on_floor():
 		esta_atacando = true 
 		velocity.x = 0
 		await get_tree().create_timer(1).timeout
 		esta_atacando = false
-		
 
 
 func deslizar(): 
@@ -69,6 +74,7 @@ func deslizar():
 		await get_tree().create_timer(0.3).timeout
 		esta_deslizando = false
 		velocity.x = 0
+
 
 func fisicas(delta):
 	#Gravedad
@@ -89,6 +95,7 @@ func movimiento(delta):
 		# Si no hay movimiento (movimiento == 0), la velocidad en x será 0
 		if movimiento == 0:
 			velocity.x = 0
+
 
 func actualizar_giro():
 	if (esta_mirando_derecha and velocity.x < 0) or (not esta_mirando_derecha and velocity.x > 0):
