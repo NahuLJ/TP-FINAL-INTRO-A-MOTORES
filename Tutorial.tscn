@@ -536,8 +536,12 @@ sources/0 = SubResource("TileSetAtlasSource_08q1j")
 [node name="Personaje" parent="." instance=ExtResource("1_xjjuk")]
 position = Vector2(23, 215)
 
+[node name="Enemigo2" parent="." instance=ExtResource("2_bqaqp")]
+position = Vector2(846, 166)
+scale = Vector2(1.21, 1.21)
+
 [node name="Enemigo" parent="." instance=ExtResource("2_bqaqp")]
-position = Vector2(558, 153)
+position = Vector2(554, 152)
 scale = Vector2(1.1, 1.1)
 
 [node name="Fondo" type="ParallaxBackground" parent="."]
