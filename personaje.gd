@@ -10,6 +10,7 @@ const gravity = 980
 var esta_mirando_derecha = true
 var esta_deslizando = false #Variable para controlar el deslizamiento 
 var esta_atacando = false 
+var vidas = 3
 
 func _process(delta): 
 	movimiento(delta)
@@ -19,40 +20,44 @@ func _process(delta):
 	deslizar()
 	actualizar_giro()
 	atacar()
+	recibir_danio()
 
 func animaciones():
 	var animated_sprite = $AnimatedSprite2D
 	
+	if vidas <= 0:
+		$AnimatedSprite2D.play("die")
+		await get_tree().create_timer(1).timeout
+		queue_free()
+
 	if esta_atacando:
 		animated_sprite.play("attack")
-		print("El personaje esta atacando")
+		#print("El personaje esta atacando")
 		return 
 		
 	#Deslizarse
 	if esta_deslizando:
 		animated_sprite.play("Slide")
-		print("El personaje esta deslizandose")
+		#print("El personaje esta deslizandose")
 		return #Salir de la funcion para evitar que se reproduzcan otras animaciones
 	
 	#Saltar y Caer
 	if(not is_on_floor()):
 		if(velocity.y < 0):
 			animated_sprite.play("Jump")
-			print("El personaje esta saltando")
+			#print("El personaje esta saltando")
 		else:
 			animated_sprite.play("Fall")
-			print("El personaje esta cayendo")
+			#print("El personaje esta cayendo")
 		return
 	
 	#Correr y Estar Quieto
 	if (velocity.x != 0):
 		animated_sprite.play("Run")
-		print("El personaje esta corriendo")
+		#print("El personaje esta corriendo")
 	else:
 		animated_sprite.play("Idle")
-		print("El personaje esta quieto")
-	
-	#Atacar
+		#print("El personaje esta quieto")
 
 
 func atacar():
@@ -101,3 +106,9 @@ func actualizar_giro():
 	if (esta_mirando_derecha and velocity.x < 0) or (not esta_mirando_derecha and velocity.x > 0):
 		scale.x *= -1
 		esta_mirando_derecha = not esta_mirando_derecha
+
+
+func recibir_danio():
+	if Input.is_action_just_pressed("suicidar"):
+		vidas -= 1
+		print("las vidas restantes son: ", vidas)

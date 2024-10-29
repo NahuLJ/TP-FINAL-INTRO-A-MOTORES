@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dvyes26kal3yc"]
+[gd_scene load_steps=48 format=3 uid="uid://dvyes26kal3yc"]
 
 [ext_resource type="Texture2D" uid="uid://nr4exp657n8s" path="res://Assets/Warrior/Individual Sprite/idle/Warrior_Idle_1.png" id="1_5kcli"]
 [ext_resource type="Script" path="res://personaje.gd" id="1_ijgln"]
@@ -34,6 +34,17 @@
 [ext_resource type="Texture2D" uid="uid://blchltdrrrk6h" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_6.png" id="32_st8q3"]
 [ext_resource type="Texture2D" uid="uid://wclhgehliuw3" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_7.png" id="33_fe6wo"]
 [ext_resource type="Texture2D" uid="uid://d2pkglyiomm1s" path="res://Assets/Warrior/Individual Sprite/Attack/Warrior_Attack_8.png" id="34_6vbby"]
+[ext_resource type="Texture2D" uid="uid://bg8qiphbrhynv" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_1.png" id="35_m5gph"]
+[ext_resource type="Texture2D" uid="uid://b6pvkqx5rawm0" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_2.png" id="36_clwy2"]
+[ext_resource type="Texture2D" uid="uid://det0aqbu8g5c8" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_3.png" id="37_gkequ"]
+[ext_resource type="Texture2D" uid="uid://chft4k7aupxjo" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_4.png" id="38_piybo"]
+[ext_resource type="Texture2D" uid="uid://dawipnsw35rm1" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_5.png" id="39_b8url"]
+[ext_resource type="Texture2D" uid="uid://cs3obkboqrp7x" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_6.png" id="40_jkn5g"]
+[ext_resource type="Texture2D" uid="uid://b5xc6ysdkquf0" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_7.png" id="41_pirdq"]
+[ext_resource type="Texture2D" uid="uid://dlbctf8v8bngx" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_8.png" id="42_oswh3"]
+[ext_resource type="Texture2D" uid="uid://ljahtpbiwqty" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_9.png" id="43_a15yp"]
+[ext_resource type="Texture2D" uid="uid://bjyxvqc85wtla" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_10.png" id="44_nbk1d"]
+[ext_resource type="Texture2D" uid="uid://cv5dcmxdeggv8" path="res://Assets/Warrior/Individual Sprite/Death-Effect/Warrior_Death_11.png" id="45_bcyg1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2bluc"]
 animations = [{
@@ -165,6 +176,44 @@ animations = [{
 "loop": false,
 "name": &"attack",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_m5gph")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_clwy2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_gkequ")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_piybo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_b8url")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_jkn5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_pirdq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_oswh3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_a15yp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_nbk1d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_bcyg1")
+}],
+"loop": false,
+"name": &"die",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j0ol"]
@@ -178,7 +227,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(3, -3)
 sprite_frames = SubResource("SpriteFrames_2bluc")
-animation = &"attack"
+animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 1.5)

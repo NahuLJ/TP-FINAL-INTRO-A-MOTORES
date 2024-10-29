@@ -16,6 +16,9 @@ var posicion_inicial
 var esta_caminando_a_derecha = true
 var esta_atacando = false
 
+
+var vidas = 3
+
 func _ready():
 	rayCast = $RayCast2D
 	recorrido = get_node("Camino/Patrullaje")
@@ -27,9 +30,10 @@ func _ready():
 func _process(delta):
 	animaciones()
 	patrullar(delta)
-	gravedad(delta)
 	voltear()
 	golpear()
+	recibir_danio()
+
 
 func voltear():
 	if esta_caminando_a_derecha:
@@ -37,9 +41,6 @@ func voltear():
 	else:
 		scale.x = -1   # Voltear hacia la derecha
 
-
-func gravedad(delta):
-	velocity.y +=  gravity * delta
 
 func animaciones():
 	if esta_atacando:
@@ -65,3 +66,10 @@ func patrullar(delta):
 			direccion *= -1
 			esta_caminando_a_derecha = not esta_caminando_a_derecha
 		position = posicion_inicial + recorrido.position
+
+func recibir_danio():
+	vidas -= 1
+	
+	if vidas <= 0:
+		await get_tree().create_timer(3).timeout
+		queue_free()
