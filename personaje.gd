@@ -5,12 +5,12 @@ const velocidad_Salto = 300
 const velocidad_Slide = 200 # velocidad del slide 
 const gravity = 980
 
-
 #Variables para controlar
 var esta_mirando_derecha = true
 var esta_deslizando = false #Variable para controlar el deslizamiento 
 var esta_atacando = false 
 var vidas = 3
+
 
 func _process(delta): 
 	movimiento(delta)
@@ -20,10 +20,9 @@ func _process(delta):
 	deslizar()
 	actualizar_giro()
 	atacar()
-	recibir_danio()
+	#recibir_danio()
 
 func animaciones():
-	var animated_sprite = $AnimatedSprite2D
 	
 	if vidas <= 0:
 		$AnimatedSprite2D.play("die")
@@ -31,32 +30,32 @@ func animaciones():
 		queue_free()
 
 	if esta_atacando:
-		animated_sprite.play("attack")
+		$AnimatedSprite2D.play("attack")
 		#print("El personaje esta atacando")
 		return 
 		
 	#Deslizarse
 	if esta_deslizando:
-		animated_sprite.play("Slide")
+		$AnimatedSprite2D.play("Slide")
 		#print("El personaje esta deslizandose")
 		return #Salir de la funcion para evitar que se reproduzcan otras animaciones
 	
 	#Saltar y Caer
 	if(not is_on_floor()):
 		if(velocity.y < 0):
-			animated_sprite.play("Jump")
+			$AnimatedSprite2D.play("Jump")
 			#print("El personaje esta saltando")
 		else:
-			animated_sprite.play("Fall")
+			$AnimatedSprite2D.play("Fall")
 			#print("El personaje esta cayendo")
 		return
 	
 	#Correr y Estar Quieto
 	if (velocity.x != 0):
-		animated_sprite.play("Run")
+		$AnimatedSprite2D.play("Run")
 		#print("El personaje esta corriendo")
 	else:
-		animated_sprite.play("Idle")
+		$AnimatedSprite2D.play("Idle")
 		#print("El personaje esta quieto")
 
 
@@ -109,6 +108,5 @@ func actualizar_giro():
 
 
 func recibir_danio():
-	if Input.is_action_just_pressed("suicidar"):
 		vidas -= 1
-		print("las vidas restantes son: ", vidas)
+		print("La vida del personaje es:", vidas)

@@ -15,9 +15,9 @@ var posicion_inicial
 #variables de control
 var esta_caminando_a_derecha = true
 var esta_atacando = false
-
-
+var animPlayer
 var vidas = 3
+var ha_hecho_danio = false
 
 func _ready():
 	rayCast = $RayCast2D
@@ -26,13 +26,18 @@ func _ready():
 	posicion_inicial = position
 	if jugador:
 		print("Hay un jugador")
+	animPlayer = $AnimatedSprite2D
 
 func _process(delta):
 	animaciones()
 	patrullar(delta)
 	voltear()
 	golpear()
-	recibir_danio()
+	#recibir_danio()
+	hacerDanioAlJugador()
+	if animPlayer.get_animation() != "attack":
+		ha_hecho_danio = false
+	
 
 
 func voltear():
@@ -73,3 +78,11 @@ func recibir_danio():
 	if vidas <= 0:
 		await get_tree().create_timer(3).timeout
 		queue_free()
+
+func hacerDanioAlJugador(): 
+	if jugador and esta_atacando :
+		if animPlayer.get_animation() == "attack" and rayCast.is_colliding() and not ha_hecho_danio: 
+			jugador.recibir_danio()
+			ha_hecho_danio = true
+
+ 
