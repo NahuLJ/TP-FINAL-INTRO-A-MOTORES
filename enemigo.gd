@@ -74,7 +74,7 @@ func patrullar(delta):
 
 func recibir_danio():
 	vidas -= 1
-	
+	print("La vida del enemgio es de: ", vidas)
 	if vidas <= 0:
 		await get_tree().create_timer(3).timeout
 		queue_free()

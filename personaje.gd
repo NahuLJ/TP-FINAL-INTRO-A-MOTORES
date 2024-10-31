@@ -10,7 +10,13 @@ var esta_mirando_derecha = true
 var esta_deslizando = false #Variable para controlar el deslizamiento 
 var esta_atacando = false 
 var vidas = 3
+var enemigo = null
+var rayCast
+var ha_hecho_danio = false 
 
+func _ready(): 
+	enemigo = get_parent().get_node("Enemigo")
+	rayCast = $RayCast2D 	 
 
 func _process(delta): 
 	movimiento(delta)
@@ -20,7 +26,9 @@ func _process(delta):
 	deslizar()
 	actualizar_giro()
 	atacar()
-	#recibir_danio()
+	hacer_danio_enemigo()
+	if esta_atacando:
+		ha_hecho_danio = false 
 
 func animaciones():
 	
@@ -63,6 +71,10 @@ func atacar():
 	if Input.is_action_just_pressed("attack") and is_on_floor():
 		esta_atacando = true 
 		velocity.x = 0
+		print("El personaje esta atacando")
+		if rayCast.is_colliding():
+			rayCast.get_collision_normal()
+			hacer_danio_enemigo()
 		await get_tree().create_timer(1).timeout
 		esta_atacando = false
 
@@ -108,5 +120,11 @@ func actualizar_giro():
 
 
 func recibir_danio():
-		vidas -= 1
-		print("La vida del personaje es:", vidas)
+	vidas -= 1
+	print("La vida del personaje es:", vidas)
+
+func hacer_danio_enemigo():
+	var colision = rayCast.get_collider()
+	if colision == enemigo and not ha_hecho_danio: 
+		enemigo.recibir_danio()
+		ha_hecho_danio = true
