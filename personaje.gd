@@ -19,7 +19,7 @@ func _ready():
 	rayCast = $RayCast2D 	 
 
 func _process(delta): 
-	movimiento(delta)
+	movimiento()
 	move_and_slide()
 	fisicas(delta)
 	animaciones()
@@ -102,15 +102,14 @@ func fisicas(delta):
 		velocity.y +=  gravity * delta
 
 
-func movimiento(delta):
+func movimiento():
 	var movimiento = Input.get_axis("move_left","move_right")
 	#get axis tiene un valor positivo y uno negativo, en este caso move_left da -1 y move_right da 1
 	if not esta_deslizando and not esta_atacando:
 		velocity.x = movimiento * velocidad_Movimiento  # Multiplica el movimiento por la velocidad
 	
 		# Si no hay movimiento (movimiento == 0), la velocidad en x será 0
-		if movimiento == 0:
-			velocity.x = 0
+		
 
 
 func actualizar_giro():
