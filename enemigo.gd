@@ -1,4 +1,5 @@
 extends CharacterBody2D
+signal golpe_realizado
 #variables para guardar los nodos
 var jugador = null
 var rayCast
@@ -27,24 +28,45 @@ func _ready():
 	if jugador:
 		print("Hay un jugador")
 	animPlayer = $AnimatedSprite2D
+	
+	# Conectamos la señal 'frame_changed' del AnimatedSprite2D
+	if animPlayer:
+		animPlayer.connect("frame_changed", self, "_on_frame_changed")
+	
+	
 
 func _process(delta):
 	animaciones()
 	patrullar(delta)
-	voltear()
 	golpear()
 	#recibir_danio()
-	hacerDanioAlJugador()
-	if animPlayer.get_animation() != "attack":
-		ha_hecho_danio = false
 	
+	if animPlayer.get_animation() != "attack":
+		ha_hecho_danio = false 
+		
+	
+	
+
+# Definir una señal personalizada para el golpe
+func _on_frame_changed():
+	if animPlayer.animation == "attack":
+		var current_frame = animPlayer.frame
+
+# Verificamos si el frame está en el rango donde el esqueleto hace daño
+		if current_frame >= 5 and current_frame <= 10 and not ha_hecho_danio:
+			ha_hecho_danio = true
+			emitir_golpe()  # Emitimos nuestra señal personalizada en el frame adecuado
+
+		# Restablecer la variable después de la animación
+		if current_frame == animPlayer.frames.get_frame_count("attack") - 1:
+			ha_hecho_danio = false
+			# Emitir la señal personalizada
+func emitir_golpe():
+	emit_signal("golpe_realizado")  # Emite la señal personalizada 'golpe_realizado'
 
 
 func voltear():
-	if esta_caminando_a_derecha:
-		scale.x = 1  # Voltear hacia la izquierda
-	else:
-		scale.x = -1   # Voltear hacia la derecha
+	scale.x *= -1
 
 
 func animaciones():
@@ -69,6 +91,7 @@ func patrullar(delta):
 		recorrido.progress += delta * velocidad_movimiento * direccion
 		if recorrido.progress_ratio == 0 or recorrido.progress_ratio == 1:
 			direccion *= -1
+			voltear()
 			esta_caminando_a_derecha = not esta_caminando_a_derecha
 		position = posicion_inicial + recorrido.position
 
@@ -79,10 +102,6 @@ func recibir_danio():
 		await get_tree().create_timer(3).timeout
 		queue_free()
 
-func hacerDanioAlJugador(): 
-	if jugador and esta_atacando :
-		if animPlayer.get_animation() == "attack" and rayCast.is_colliding() and not ha_hecho_danio: 
-			jugador.recibir_danio()
-			ha_hecho_danio = true
+
 
  

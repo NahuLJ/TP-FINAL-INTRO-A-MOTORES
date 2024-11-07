@@ -16,7 +16,8 @@ var ha_hecho_danio = false
 
 func _ready(): 
 	enemigo = get_parent().get_node("Enemigo")
-	rayCast = $RayCast2D 	 
+	rayCast = $RayCast2D 	
+#	enemigo.connect("golpe_realizado", self, "_on_golpe_del_enemigo") 
 
 func _process(delta): 
 	movimiento()
@@ -29,6 +30,10 @@ func _process(delta):
 	hacer_danio_enemigo()
 	if esta_atacando:
 		ha_hecho_danio = false 
+		
+func _on_golpe_del_enemigo():
+	# Llamar al método de daño del jugador
+	recibir_danio()
 
 func animaciones():
 	
